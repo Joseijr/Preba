@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Traductor a Silbidos Rusos</title>
+</head>
+<body>
+<h1>Traductor a Silbidos Rusos</h1>
+<form id="formulario">
+  <label for="texto">Ingrese texto en español:</label><br>
+  <textarea id="texto" name="texto" rows="4" cols="50"></textarea><br>
+  <button type="button" onclick="traducirASilbidos()">Traducir</button>
+</form>
+<div id="resultado"></div>
+
+<script>
+function traducirASilbidos() {
+  var textoEspañol = document.getElementById("texto").value;
+  var textoRuso = transliterarAEspañolARuso(textoEspañol);
+  var textoSilbidos = traducirARusoASilbidos(textoRuso);
+  document.getElementById("resultado").innerHTML = "<strong>Texto en silbidos:</strong><br>" + textoSilbidos;
+}
+
+function transliterarAEspañolARuso(texto) {
+  // Diccionario de transliteración español a ruso
+  var transliteracion = {
+    'a': 'а', 'b': 'б', 'c': 'ц', 'd': 'д', 'e': 'е', 'f': 'ф', 'g': 'г', 'h': 'х', 'i': 'и',
+    'j': 'й', 'k': 'к', 'l': 'л', 'm': 'м', 'n': 'н', 'o': 'о', 'p': 'п', 'q': 'к', 'r': 'р',
+    's': 'с', 't': 'т', 'u': 'у', 'v': 'в', 'w': 'в', 'x': 'кс', 'y': 'ы', 'z': 'з', 'á': 'а',
+    'é': 'е', 'í': 'и', 'ó': 'о', 'ú': 'у', 'ü': 'у', 'ñ': 'нь', ' ': ' ' // Espacio en blanco
+  };
+
+  // Translitera el texto de español a ruso
+  var textoRuso = "";
+  for (var i = 0; i < texto.length; i++) {
+    var caracter = texto[i].toLowerCase();
+    if (transliteracion.hasOwnProperty(caracter)) {
+      textoRuso += transliteracion[caracter];
+    } else {
+      textoRuso += caracter; // Si el caracter no está en el diccionario, se deja igual
+    }
+  }
+  return textoRuso;
+}
+
+function traducirARusoASilbidos(texto) {
+  // Diccionario de traducción de letras rusas a "silbidos"
+  var silbidos = {
+    'а': 's', 'б': 'ss', 'в': 'sss', 'г': 'ssss', 'д': 'sssss', 'е': 'ssssss', 'ё': 'sssssss',
+    'ж': 'ssssssss', 'з': 'sssssssss', 'и': 'ssssssssss', 'й': 'sssssssssss', 'к': 'ssssssssssss',
+    'л': 'sssssssssssss', 'м': 'ssssssssssssss', 'н': 'sssssssssssssss', 'о': 'ssssssssssssssss',
+    'п': 'sssssssssssssssss', 'р': 'ssssssssssssssssss', 'с': 'sssssssssssssssssss',
+    'т': 'ssssssssssssssssssss', 'у': 'sssssssssssssssssssss', 'ф': 'ssssssssssssssssssssss',
+    'х': 'ssssssssssssssssssss', 'ц': 'ssssssssssssssssssssss', 'ч': 'sssssssssssssssssssssssss',
+'ш': 'ssssssssssssssssssssssssss', 'щ': 'sssssssssssssssssssssssssss',
+'ъ': 'ssssssssssssssssssssssssssss', 'ы': 'sssssssssssssssssssssssssssss',
+'ь': 'ssssssssssssssssssssssssssssss', 'э': 'sssssssssssssssssssssssssssssss',
+'ю': 'ssssssssssssssssssssssssssssssssssss', 'я': 'ssssssssssssssssssssssssssssssss',
+' ': ' ' // Espacio en blanco
+};
+
+// Traduce el texto ruso a "silbidos"
+var textoSilbidos = "";
+for (var i = 0; i < texto.length; i++) {
+var caracter = texto[i];
+if (silbidos.hasOwnProperty(caracter)) {
+textoSilbidos += silbidos[caracter];
+} else {
+textoSilbidos += caracter; // Si el caracter no está en el diccionario, se deja igual
+}
+}
+return textoSilbidos;
+}
+</script>
+
+</body>
+</html>
+```
